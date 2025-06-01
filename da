@@ -1,0 +1,46 @@
+import React, { useState } from "react";
+
+export default function FirmaAnaliz() {
+  const [firmaAdi, setFirmaAdi] = useState("");
+  const [sonuc, setSonuc] = useState(null);
+
+  const analizEt = () => {
+    setSonuc({
+      fuarlar: ["Canton Fair 2024", "TÜYAP Gıda Fuarı 2023"],
+      ticaretOdasi: "İstanbul Ticaret Odası",
+      rol: "İhracatçı",
+      gumrukVerisi: "2023: 12.5M USD ihracat / 4.2M USD ithalat",
+      disTicaretRaporu: "Orta Doğu'ya yönelik ihracat hacminde %15 artış.",
+    });
+  };
+
+  return (
+    <div style={{ maxWidth: "600px", margin: "2rem auto", padding: "1rem" }}>
+      <h1 style={{ fontSize: "24px", fontWeight: "bold", textAlign: "center", marginBottom: "1rem" }}>
+        Firma Dış Ticaret Analiz Aracı
+      </h1>
+      <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+        <input
+          type="text"
+          placeholder="Firma adı girin..."
+          value={firmaAdi}
+          onChange={(e) => setFirmaAdi(e.target.value)}
+          style={{ flexGrow: 1, padding: "0.5rem" }}
+        />
+        <button onClick={analizEt} style={{ padding: "0.5rem 1rem" }}>
+          Analiz Et
+        </button>
+      </div>
+
+      {sonuc && (
+        <div style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "1rem" }}>
+          <p><strong>Katıldığı Fuarlar:</strong> {sonuc.fuarlar.join(", ")}</p>
+          <p><strong>Ticaret Odası Üyeliği:</strong> {sonuc.ticaretOdasi}</p>
+          <p><strong>Firma Rolü:</strong> {sonuc.rol}</p>
+          <p><strong>Gümrük Verisi:</strong> {sonuc.gumrukVerisi}</p>
+          <p><strong>Dış Ticaret Raporu:</strong> {sonuc.disTicaretRaporu}</p>
+        </div>
+      )}
+    </div>
+  );
+}
