@@ -1,0 +1,53 @@
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { motion } from "framer-motion";
+
+export default function FirmaAnaliz() {
+  const [firmaAdi, setFirmaAdi] = useState("");
+  const [sonuc, setSonuc] = useState(null);
+
+  const analizEt = async () => {
+    // Örnek veri – burada gerçek API'den veri çekilecek
+    setSonuc({
+      fuarlar: ["Canton Fair 2024", "TÜYAP Gıda Fuarı 2023"],
+      ticaretOdasi: "İstanbul Ticaret Odası",
+      rol: "İhracatçı",
+      gumrukVerisi: "2023: 12.5M USD ihracat / 4.2M USD ithalat",
+      disTicaretRaporu: "Orta Doğu'ya yönelik ihracat hacminde %15 artış."
+    });
+  };
+
+  return (
+    <div className="max-w-2xl mx-auto mt-10 p-4">
+      <h1 className="text-2xl font-bold mb-4 text-center">Firma Dış Ticaret Analiz Aracı</h1>
+      <div className="flex items-center gap-2 mb-4">
+        <Input
+          placeholder="Firma adı girin..."
+          value={firmaAdi}
+          onChange={(e) => setFirmaAdi(e.target.value)}
+        />
+        <Button onClick={analizEt}>Analiz Et</Button>
+      </div>
+
+      {sonuc && (
+        <motion.div
+          className="space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <Card>
+            <CardContent className="p-4">
+              <p><strong>Katıldığı Fuarlar:</strong> {sonuc.fuarlar.join(", ")}</p>
+              <p><strong>Ticaret Odası Üyeliği:</strong> {sonuc.ticaretOdasi}</p>
+              <p><strong>Firma Rolü:</strong> {sonuc.rol}</p>
+              <p><strong>Gümrük Verisi:</strong> {sonuc.gumrukVerisi}</p>
+              <p><strong>Dış Ticaret Raporu:</strong> {sonuc.disTicaretRaporu}</p>
+            </CardContent>
+          </Card>
+        </motion.div>
+      )}
+    </div>
+  );
+}
